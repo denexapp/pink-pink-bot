@@ -1,0 +1,28 @@
+{
+  "name": "pink-pink-bot",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/denexapp/pink-pink-bot.git"
+  },
+  "author": "Denis Mukhametov (https://denexapp.me/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/denexapp/pink-pink-bot/issues"
+  },
+  "homepage": "https://github.com/denexapp/pink-pink-bot#readme",
+  "dependencies": {
+    "tmi.js": "^1.5.0",
+    "ts.data.json": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.13",
+    "@types/tmi.js": "^1.4.0",
+    "typescript": "^3.8.3"
+  }
+}
