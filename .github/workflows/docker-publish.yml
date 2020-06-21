@@ -51,15 +51,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-      
-      - name: Install Dependencies
-        run: npm install
-      
-      - name: Build Project
-        run: npm run build
-      
-      - name: Clear src folder
-        run: rm -rf ./src
 
       - name: Build image
         run: docker build . --file Dockerfile --tag $IMAGE_NAME
