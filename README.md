@@ -1,2 +1,2 @@
-# pink-bot
+# pink-pink-bot
 Simple bot for moderating twitch.tv chat
