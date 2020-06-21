@@ -4,6 +4,12 @@
 
 FROM node:12
 
+# Set up app working directory (idk why tho)
+WORKDIR /usr/src/app
+
+# Add builded project to the container filesystem
+COPY . .
+
 # Install dependencies
 RUN npm ci
 
@@ -12,9 +18,6 @@ RUN npm run build
 
 # Remove source code
 RUN rm -rf ./src
-
-# Add builded project to the container filesystem
-COPY . .
 
 # EXPOSE 8080
 
