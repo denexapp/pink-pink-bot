@@ -1,5 +1,4 @@
 import { Client } from 'tmi.js'
-import consts from './utils/consts'
 import variables from './utils/variables'
 import isRussianMessage from './utils/isRussianMessage'
 
@@ -10,7 +9,7 @@ const client = Client({
     secure: true
   },
   identity: {
-    username: consts.username,
+    username: variables.username,
     password: variables.password
   },
   channels: [variables.channel]
