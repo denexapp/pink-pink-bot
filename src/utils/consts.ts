@@ -1,5 +1,3 @@
-const consts = {
-  
-}
+const consts = { }
 
 export default consts
