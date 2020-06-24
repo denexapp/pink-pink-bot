@@ -86,8 +86,8 @@ jobs:
       - name: updateImageAndRunContainer 
         uses: appleboy/ssh-action@v0.1.2
         env:
-          IMAGE_ID: ${{ IMAGE_ID }}
-          VERSION: ${{ VERSION }}
+          IMAGE_ID: $IMAGE_ID
+          VERSION: $VERSION
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
