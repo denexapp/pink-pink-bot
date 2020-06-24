@@ -77,8 +77,10 @@ jobs:
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
           
-          echo "::set-env name=IMAGE_ID::$IMAGE_ID"
+          echo "::set-env name=IMAGE_IDW::$IMAGE_ID"
           echo "::set-env name=VERSION::$VERSION"
+          
+          echo ${{ IMAGE_IDW }}
 
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
