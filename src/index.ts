@@ -10,7 +10,7 @@ const client = Client({
   },
   identity: {
     username: variables.username,
-    password: variables.password
+    password: variables.token
   },
   channels: [variables.channel]
 })

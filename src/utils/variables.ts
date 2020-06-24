@@ -3,12 +3,12 @@ import decode from './decode'
 
 type Variables = {
   username: string
-  password: string
+  token: string
   channel: string
 }
 const variablesDecoder = JsonDecoder.object<Variables>({
   username: JsonDecoder.string,
-  password: JsonDecoder.string,
+  token: JsonDecoder.string,
   channel: JsonDecoder.string
 }, 'Variables Decoder')
 
