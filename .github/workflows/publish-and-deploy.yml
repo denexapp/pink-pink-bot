@@ -73,7 +73,7 @@ jobs:
           script: |
             docker login https://docker.pkg.github.com -u $GITHUB_ACTOR --password "${{ secrets.GITHUB_TOKEN }}"
             docker pull $IMAGE_ID:$VERSION
-            docker stop $(docker ps -a -q --filter ancestor=$IMAGE_ID) || true
-            docker rm $(docker ps -a -q --filter ancestor=$IMAGE_ID) || true
+            docker stop $(docker ps -a -q --filter name=^/${{ secrets.DOCKER_CONTAINER_NAME }}$) || true
+            docker rm $(docker ps -a -q --filter name=^/${{ secrets.DOCKER_CONTAINER_NAME }}$) || true
             docker run --name=${{ secrets.DOCKER_CONTAINER_NAME }} --restart=always -e "username=${{ secrets.BOT_USERNAME }}" -e "token=${{ secrets.BOT_OAUTH_TOKEN }}" -e "channel=${{ secrets.BOT_CHANNEL }}" $IMAGE_ID:$VERSION
             docker image prune -a -f
