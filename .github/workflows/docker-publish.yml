@@ -79,13 +79,22 @@ jobs:
           
           echo "::set-env name=IMAGE_ID::$IMAGE_ID"
           echo "::set-env name=VERSION::$VERSION"
-          
-          echo ${{ IMAGE_ID }}
 
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
-          
-      - name: updateImageAndRunContainer 
+        
+      - name: Test
+        run: |
+           echo $IMAGE_ID
+                   
+      - name: Test2
+        env:
+          IMAGE_ID: $IMAGE_ID
+          VERSION: $VERSION
+        run: |
+           echo $IMAGE_ID
+        
+      - name: Update image and run container 
         uses: appleboy/ssh-action@v0.1.2
         env:
           IMAGE_ID: $IMAGE_ID
