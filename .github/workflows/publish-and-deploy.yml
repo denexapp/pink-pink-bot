@@ -76,23 +76,25 @@ jobs:
 
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
+          
+          echo "::set-env name=IMAGE_ID::$IMAGE_ID"
+          echo "::set-env name=VERSION::$VERSION"
 
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
-  updateImageAndRunContainer:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-    needs: push
-    
-    steps:
-      - name: SSH 
+
+      - name: Update image and run container 
         uses: appleboy/ssh-action@v0.1.2
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
+          envs: IMAGE_ID,VERSION,GITHUB_ACTOR
+          script_stop: true
           script: |
+            docker login https://docker.pkg.github.com -u $GITHUB_ACTOR --password "${{ secrets.GITHUB_TOKEN }}"
             docker pull $IMAGE_ID:$VERSION
-            docker stop ${{ secrets.DOCKER_CONTAINER_NAME }}
-            docker rm ${{ secrets.DOCKER_CONTAINER_NAME }}
-            docker run --name=${{ secrets.DOCKER_CONTAINER_NAME }} --restart=always -e "username={{ secrets.BOT_USERNAME }}" -e "password={{ secrets.BOT_PASSWORD }}" -e "channel={{ secrets.BOT_CHANNEL }}" $IMAGE_ID:$VERSION
+            docker stop $(docker ps -a -q --filter ancestor=$IMAGE_ID) || true
+            docker rm $(docker ps -a -q --filter ancestor=$IMAGE_ID) || true
+            docker run --name=${{ secrets.DOCKER_CONTAINER_NAME }} --restart=always -e "username=${{ secrets.BOT_USERNAME }}" -e "token=${{ secrets.BOT_OAUTH_TOKEN }}" -e "channel=${{ secrets.BOT_CHANNEL }}" $IMAGE_ID:$VERSION
+            docker image prune -a -f
