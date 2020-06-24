@@ -89,9 +89,10 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
-          envs: IMAGE_ID,VERSION
+          envs: IMAGE_ID,VERSION,GITHUB_ACTOR
           script_stop: true
           script: |
+            docker login https://docker.pkg.github.com -u $GITHUB_ACTOR --password "${{ secrets.GITHUB_TOKEN }}"
             docker pull $IMAGE_ID:$VERSION
             docker stop ${{ secrets.DOCKER_CONTAINER_NAME }}
             docker rm ${{ secrets.DOCKER_CONTAINER_NAME }}
