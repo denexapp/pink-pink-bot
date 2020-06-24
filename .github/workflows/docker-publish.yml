@@ -95,7 +95,7 @@ jobs:
           envs: IMAGE_ID,VERSION
           script_stop: true
           script: |
-            docker pull ${{ IMAGE_ID }}:${{ $VERSION }}
+            docker pull $IMAGE_ID:$VERSION
             docker stop ${{ secrets.DOCKER_CONTAINER_NAME }}
             docker rm ${{ secrets.DOCKER_CONTAINER_NAME }}
             docker run --name=${{ secrets.DOCKER_CONTAINER_NAME }} --restart=always -e "username=${{ secrets.BOT_USERNAME }}" -e "password=${{ secrets.BOT_PASSWORD }}" -e "channel=${{ secrets.BOT_CHANNEL }}" $IMAGE_ID:$VERSION
